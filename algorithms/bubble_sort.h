@@ -10,7 +10,7 @@ Worst case space complexity: O(1)
 */
 
 void bubble_sort(int arr[], int n) {
-  unsigned int temp;
+  int temp;
   int i;
   int j;
 
