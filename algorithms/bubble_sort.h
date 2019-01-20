@@ -13,7 +13,8 @@ void bubble_sort(int arr[], int n) {
   int temp;
   int i;
   int j;
-
+  
+  i = 0;
   while (i < n) {
     j = 0;
     while (j < i) {
