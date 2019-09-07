@@ -9,40 +9,42 @@ Worst case space complexity: O(n)
 
 */
 
-#include <stdlib.h>
+void merge(int arr1[], int n1, int arr2[], int n2) {
+  int tmp[n1 + n2];
+  int i = 0;
+  int j = 0;
+  int k = 0;
 
-void merge(
-    int* arr, int* left_arr, int left_count, int* right_arr, int right_count) {
-  int i, j, k;
-
-  i = 0;
-  j = 0;
-  k = 0;
-
-  while (i < left_count && j < right_count) {
-    if (left_arr[i] < right_arr[j])
-      arr[k++] = left_arr[i++];
-    else
-      arr[k++] = right_arr[j++];
+  while (j < n1 && k < n2) {
+    if (arr1[j] < arr2[k]) {
+      tmp[i++] = arr1[j++];
+    } else {
+      tmp[i++] = arr2[k++];
+    }
   }
-  while (i < left_count) arr[k++] = left_arr[i++];
-  while (j < right_count) arr[k++] = right_arr[j++];
+
+  while (j < n1) {
+    tmp[i++] = arr1[j++];
+  }
+
+  while (k < n2) {
+    tmp[i++] = arr2[k++];
+  }
+
+  for (i = 0; i < n1 + n2; i++) {
+    arr1[i] = tmp[i];
+  }
 }
 
 void merge_sort(int arr[], int n) {
-  int mid, i, *L, *right_arr;
-  if (n < 2) return;
-  mid = n / 2;
+  if (n == 1) {
+    return;
+  }
 
-  L = (int*)malloc(mid * sizeof(int));
-  right_arr = (int*)malloc((n - mid) * sizeof(int));
+  int n1 = n / 2;
+  int n2 = n - n1;
 
-  for (i = 0; i < mid; i++) L[i] = arr[i];
-  for (i = mid; i < n; i++) right_arr[i - mid] = arr[i];
-
-  merge_sort(L, mid);
-  merge_sort(right_arr, n - mid);
-  merge(arr, L, mid, right_arr, n - mid);
-  free(L);
-  free(right_arr);
+  merge_sort(arr, n1);
+  merge_sort(arr + n1, n2);
+  merge(arr, n1, arr + n1, n2);
 }
