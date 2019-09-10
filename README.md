@@ -8,12 +8,11 @@
 * [Why sorting algorithms?](#why-sorting-algorithms)
 * [Why C?](#why-c)
 * [Parameters](#parameters)
-   * [arr](#arr)
-   * [n](#n)
-* [Time complexity](#time-complexity)
-   * [Big O](#big-o)
+* [Algorithm analysis](#algorithm-analysis)
+   * [Worst-case analysis](#worst-case-analysis)
+   * [Big O notation](#big-o-notation)
 
-## <a name="algorithms"></a> Algorithms
+## Algorithms
 
 - [Bogo sort](/algorithms/bogo_sort.h)
 - [Bubble sort](/algorithms/bubble_sort.h)
@@ -33,61 +32,59 @@
 - [Tree sort](/algorithms/tree_sort.h)
 
 
-## <a name="why-sorting-algorithms"></a> Why sorting algorithms?
+## Why sorting algorithms?
 
-Most languages already have a sort method implemented in standard libraries, so why learn sorting algorithms?
+1. Sorting is a simple and well-defined problem, which makes it perfect for studying.
+2. Sorting algorithms cover important concepts like divide-and-conquer, data structures, and randomized algorithms.
+3. Sorting is a common computer task. At one point a quarter of all mainframe cycles were spent sorting.
 
-Learning sorting algorithms teaches you algorithm design. You will learn how to use paradigms like [divide and conquer](https://en.wikipedia.org/wiki/Divide_and_conquer_algorithm), how to measure algorithm complexity and when to use different sorting algorithms to maximize efficiency.
+## Why C?
 
-## <a name="why-c"></a> Why C?
+Many languages are based on C, so the syntax will be familiar to most developers.
 
-C is a low-level high-level language.
+## Parameters
 
-It's close enough to the metal that we still need to consider memory management. Being able to see how we manage memory in the algorithm makes it easier to calculate the running time.
+The sorting functions have the following prototype:
 
-At the same time, it's a high-level language, so the syntax is human readable.
+```c
+void sort(int arr[], int n)
+```
 
-Finally, a lot of languages are based on C, so the syntax will be familiar to many developers.
+`arr` is the array to be sorted.
 
-## <a name="parameters"></a>Parameters
+`n` is the number of elements in `arr`.
 
-The parameter names used throughout the algorithms
+The function name will be the same as the filename, e.g. `merge_sort` for merge_sort.h.
 
-### <a name="arr"></a>arr
+## Algorithm analysis
 
-Array to be sorted.
+Algorithm analysis determines the efficiency of different algorithms.
 
-*Note: Arrays in C are [passed by reference](https://stackoverflow.com/a/1106977/4939630)*
+One approach to determine the running time of an algorithm is to count the number of _steps_ an algorithm takes to complete. Most commonly, simple operations (`+`, `\`, `*`, `-`, `=`, `if`) are understood to take one step to complete. Loops and subroutines are made up of the number of steps that they perform.
 
-### <a name="n"></a>n
+Consider an algorithm that performs 2 steps for each element in its input array (of length n). In total, it performs 2n steps. This can be expressed as a function that defines the **time complexity** of the algorithm as a function of its input: T(n)=2n.
 
-Number of elements in `arr`.
+### Worst-case analysis
 
-## <a name="time-complexity"></a> Time complexity
+Many algorithms perform a different number of steps depending on the state of the input. For example, some sorting algorithms complete almost immediately if the array is already sorted.
 
-Time complexity is a way of measuring how long an algorithm takes to run.
+- The **best-case complexity** is the minimum number of steps taken to complete.
+- The **worst-case complexity** is the maximum number of steps taken to complete.
+- The **average-case complexity** is the average number of steps taken to complete.
 
-It's important to consider how long an algorithm takes to run. A poorly written algorithm could take tens of thousands of times longer to finish than a well written algorithm.
+Worst-case complexity is most often used in algorithm analysis. This because the worst-case is both likely to occur (best-case is usually not) and easy to calculate (average-case is usually not).
 
-But measuring the running time of an algorithm can be tricky.
+### Big O notation
 
-We can't measure an algorithm absolutely (i.e. in milliseconds), because the amount of time it takes will vary between hardware and between runs. An algorithm could take 1200ms to complete on my machine, and 4000ms on a slow computer.
+Big O notation is a way to classify algorithms according to the their growth rate.
 
-Instead, we measure the *relative* running time.
+Time complexity functions often contain a lot of detail, for example: f(n)=1234n² + 1228n + 92lg₂n + 8736. This level of detail is not much more informative than stating that "the time grows quadratically with n". Big O notation hides the extra detail from functions.
 
-To do this, we count the number of operations performed in the algorithm.
+A non-rigorous explanation is that big O notation allows you to ignore constant factors and low-order terms. For example, the functions f(n)=4n+3 and f(n)=12n+9 can both be expressed as O(n) in big O.
 
-The most common way to express time complexity is with big O notation.
+_Note: for a complete understanding, read [the formal definition of big O on Wikipedia](https://en.wikipedia.org/wiki/Big_O_notation#Formal_definition)_.
 
-### <a name="big-o"></a> Big O notation
-
-Big O notation measures the relative time an algorithm takes to run given the worst case.
-
-Big O only cares about the big operations.
-
-Generally we only care about the rough running time, so constant actions aren't included in the calculation.
-
-Here's a table to use as a reference when looking through the algorithms in this project:
+Big O notation creates classes of algorithms. The following table describes the most common classes:
 
 Big-O | Name | Description
 ------| ---- | -----------
